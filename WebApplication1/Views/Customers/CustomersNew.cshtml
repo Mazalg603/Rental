@@ -1,0 +1,112 @@
+﻿@model  WebApplication1.Models.Customer
+@{
+    Layout = "/Layout/Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CustomersNew</title>
+    <style>
+        p {
+            color: red;
+        }
+
+        .notvalid {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="formId">
+        <h2>Adding a new Customer to a database</h2>
+        <form method="post" action="/Customers/CustomersSave" name="CustomersForm" onsubmit="return validateForm()">
+            <label for="CustomersName"> Customers Name :</label>
+            <br />
+            <input id="CustomersName" type="text" name="CustomersName" value="@Model.CustomersName" class=" @ViewBag.customerName" placeholder="Enter Customer Name" />
+            <br />
+            <p id="NameId">@Html.ValidationMessageFor(N => N.CustomersName)</p>
+            <br />
+            <label for="CustomersSubscription">Customers Subscription :</label>
+            <br />
+            <select id="CustomersSubscription" name="CustomersSubscription" value="@Model.CustomersSubscription" class="@ViewBag.customerSubscription">
+                <option selected></option>
+                <option value="Monthly">Monthly</option>
+                <option value="Pay as you go">Pay as you go</option>
+                <option value="Annual">Annual</option>
+                <option value="Quarterly">Quarterly</option>
+            </select>
+            <br />
+            <p id="CategoryId">@Html.ValidationMessageFor(C => C.CustomersSubscription)</p>
+            <br />
+            <label for="CustomersName"> Customers Age :</label>
+            <br />
+            <input id="CustomerAge" class="@ViewBag.customerAge" type="number" name="CustomersAge" value="@Model.CustomersAge" placeholder="Enter Customers Age" />
+            <br />
+            <p id="AgeId">@Html.ValidationMessageFor(A => A.CustomersAge)</p>
+            <br /><br />
+            <input type="submit" name="submit" value="Add Customers" title="Make sure all required fields are complete" />
+        </form>
+        <br />
+        <p>@ViewBag.messageExsit</p>
+    </div>
+    <script>
+        function validateForm() {
+            var returnValue = true;
+            var text = "This field is required";
+            var NameIdDocument = document.getElementById("NameId");
+            var CategoryIdDocument = document.getElementById("CategoryId");
+            var AgeIdDocument = document.getElementById("AgeId");
+
+            var CustomersNameDocument = document.forms["CustomersForm"]["CustomersName"];
+            var CustomersSubscriptionDocument = document.forms["CustomersForm"]["CustomersSubscription"];
+            var CustomersAgeDocument = document.forms["CustomersForm"]["CustomersAge"];
+
+            //אתחול המשתנים כל פעם שהם לא עוברים בדיקת ולידציה ויש הודעות שגיאה
+            RestartVariables();
+
+            if (CustomersNameDocument.value == "" || CustomersSubscriptionDocument.value == "" || CustomersAgeDocument.value == "") {
+                if (CustomersNameDocument.value == "") {
+                    CustomersNameDocument.style.borderColor = "red";
+                    NameIdDocument.innerHTML = text;
+                    NameIdDocument.style.color = "red";
+                    returnValue = false;
+                }
+                if (CustomersSubscriptionDocument.value == "") {
+                    CustomersSubscriptionDocument.style.borderColor = "red";
+                    CategoryIdDocument.innerHTML = text;
+                    CategoryIdDocument.style.color = "red";
+                    returnValue = false;
+                }
+                if (CustomersAgeDocument.value.length <= 0) {
+                    CustomersAgeDocument.style.borderColor = "red";
+                    AgeIdDocument.innerHTML = text;
+                    AgeIdDocument.style.color = "red";
+                    returnValue = false;
+                }
+                else if ((18 > CustomersAgeDocument.value) || (CustomersAgeDocument.value <= 0) == true) {
+                    CustomersAgeDocument.style.borderColor = "red";
+                    AgeIdDocument.innerHTML = "Sorry, you must be bigger than 18";
+                    AgeIdDocument.style.color = "red";
+                    returnValue = false;
+                }
+            }
+            return returnValue;
+        }
+
+        function RestartVariables() {
+            CustomersNameDocument.style.borderColor = "black";
+            NameIdDocument.innerHTML = "";
+            CustomersSubscriptionDocument.style.borderColor = "black";
+            CategoryIdDocument.innerHTML = "";
+            CustomersAgeDocument.style.borderColor = "black";
+            AgeIdDocument.innerHTML = "";
+        }
+        $(function () {
+            $(document).tooltip();
+        });
+    </script>
+</body>
+</html>

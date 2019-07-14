@@ -1,0 +1,42 @@
+﻿@using WebApplication1.Models
+
+@model List<Movie>
+
+@{
+    Layout = "/Layout/Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MoviesIndex</title>
+    <style>
+        .linkId {
+            position: relative;
+            left: 60%;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Movies</h1>
+    <br />
+    <div class="linkId">@Html.ActionLink("Click to go to the Create Movie form", "MoviesNew")</div>
+    <br />
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+        </tr>
+        @foreach (var Line in Model)
+        {
+            <tr>
+                <td>@Line.MovieName</td>
+                <td>@Line.MovieCategory</td>
+            </tr>
+        }
+    </table>
+    <br /><br />
+</body>
+</html>

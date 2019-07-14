@@ -1,0 +1,119 @@
+﻿@model WebApplication1.Models.Rental
+@{
+    Layout = "/Layout/Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RentalsNew</title>
+    <style>
+        .EroorMessge {
+            color: red;
+        }
+
+        input {
+            width: 40%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #cbd4db;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: lightblue;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #286090;
+            color: white;
+            font-size: 20px;
+            width: 40%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #cbd4db;
+            border-radius: 5px;
+        }
+        .succass {
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="formId">
+        <h2>Form for renting a new movie</h2>
+        <br /><br />
+        <label for="CostomerInput"> Customer Name :</label>
+        <br />
+        <input id="CostomerInput" type="text" name="CostomerName" placeholder="Enter Customer Name" value="@Model.CostomerName" />
+        <p id="CustomerId" class="EroorMessge">@Html.ValidationMessageFor(x => x.CostomerName)</p>
+        <br /><br />
+        <label for="MovieInput"> Movie Name :</label>
+        <br />
+        <input id="MovieInput" type="text" name="MovieName" placeholder="Enter Movie Name" value="@Model.MovieName" />
+        <p id="MovieId" class="EroorMessge">@Html.ValidationMessageFor(x => x.MovieName)</p>
+        <br /><br />
+        <button type="button" onclick="Validet()" title="Make sure all required fields are complete"> Rental</button>
+        <p id="Messges" class="@ViewBag.succass"></p>
+    </div>
+    <script>
+        var CostomerInput = document.getElementById("CostomerInput");
+        var MovieInput = document.getElementById("MovieInput");
+
+        var CostomerMessageElement = document.getElementById("CustomerId");
+        var MovieMessageElement = document.getElementById("MovieId");
+            
+        function Validet() {
+            CostomerInput.style.borderColor = "black";
+            CostomerMessageElement.innerHTML = "";
+
+            MovieInput.style.borderColor = "black";
+            MovieMessageElement.innerHTML = "";
+
+            if (CostomerInput.value == "" || MovieInput.value == "")
+            {
+                if (CostomerInput.value == "") {
+                    CostomerInput.style.borderColor = "red";
+                    CostomerMessageElement.innerHTML = "Fill the customer name";
+                }
+                if (MovieInput.value == "") {
+                    MovieInput.style.borderColor = "red";
+                    MovieMessageElement.innerHTML = "Fill the Movie name";
+                }
+            }
+            else
+            {
+                AJAXRequest();
+            }
+        }
+
+        function AJAXRequest() {
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    var jsonObj = JSON.parse(this.responseText);
+                    if (jsonObj.MassegeBool) {
+                        document.getElementById("Messges").innerHTML = jsonObj.RentalMessge;
+                        document.getElementById("Messges").style.color = "green";
+                    } else {
+                        document.getElementById("Messges").innerHTML = jsonObj.RentalMessge;
+                        document.getElementById("Messges").style.color = "red";
+                    }
+                }
+            };
+            var UrlSlic1 ="CostomerName="+ CostomerInput.value;
+            var UrlSlic2 = "MovieName="+MovieInput.value;
+            xhttp.open("Post", "/Rentals/CreateNewRentals?" + UrlSlic1 + "&" + UrlSlic2); xhttp.send();
+        }
+        $(function () {
+            $(document).tooltip();
+        });
+    </script>
+</body>
+</html>

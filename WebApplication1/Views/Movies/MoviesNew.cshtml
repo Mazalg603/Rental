@@ -1,0 +1,98 @@
+﻿@model WebApplication1.Models.Movie
+@{
+    Layout = "/Layout/Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MoviesNew</title>
+
+    <style>
+        #CategoryId {
+            color: #ff0000;
+        }
+
+        #NameId {
+            color: #ff0000;
+        }
+
+        .notvalid {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="formId">
+        <h2>Adding a new movie to a database</h2>
+
+        <form method="post" action="/Movies/MoviesSave" name="MovieForm" onsubmit="return validateForm()">
+
+            <label for="MovieName"> Movie Name :</label>
+            <br />
+            <input id="MovieName" type="text" name="MovieName" placeholder="Enter Movie Name" value="@Model.MovieName" /> 
+            <p id="NameId">@Html.ValidationMessageFor(x => x.MovieName)</p>
+            <br />
+
+            <label for="MovieCategory"> Movie Category :</label>
+            <br />
+            <select id="MovieCategory" name="MovieCategory" value="@Model.MovieCategory">
+                <option selected></option>
+                <option>Family</option>
+                <option>Romance</option>
+                <option>Comedy</option>
+                <option>Action</option>
+            </select>
+            <p id="CategoryId">@Html.ValidationMessageFor(x => x.MovieCategory)</p>
+            <br /><br />
+
+            <input id="inputId" type="submit" name="submit" value="Add Movie" title="Make sure all required fields are complete"  />
+        </form>
+        <p style="color:red;">@ViewBag.messageExsit</p>
+    </div>
+    <script>
+        $(function () {
+            $("form").validate();
+        });
+    </script>
+
+    @*<script>
+        function validateForm() {
+            var returnValue = true;
+            var text = "This field is required";
+            var NameIdDocument = document.getElementById("NameId");
+            var CategoryIdDocument = document.getElementById("CategoryId");
+            var MovieNameDocument = document.forms["MovieForm"]["MovieName"];
+            var MovieCategoryDocument = document.forms["MovieForm"]["MovieCategory"];
+
+            MovieNameDocument.style.borderColor = "black";
+            NameIdDocument.innerHTML = "";
+
+            MovieCategoryDocument.style.borderColor = "black";
+            CategoryIdDocument.innerHTML = "";
+
+            if (MovieNameDocument.value=="" || MovieCategoryDocument.value == "")
+            {
+                if (MovieCategoryDocument.value == "") {
+                    MovieCategoryDocument.style.borderColor = "red";
+                    CategoryIdDocument.innerHTML = text;
+                    CategoryIdDocument.style.color = "red";
+                    returnValue= false;
+                }
+                if (MovieNameDocument.value == "") {
+                    MovieNameDocument.style.borderColor = "red";
+                    NameIdDocument.innerHTML = text;
+                    NameIdDocument.style.color= "red"
+                    returnValue= false;
+                }
+            }
+            return returnValue;*@
+        @*}
+        $(function () {
+            $(document).tooltip();
+        });
+
+    </script>*@
+</body>
+</html>

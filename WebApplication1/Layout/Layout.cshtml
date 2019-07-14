@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-image: url(http://cutaway.co.il/wp-content/uploads/2015/06/Untitled-2-1.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        linkId {
+            margin-left: 10px;
+            margin-bottom: 60px;
+        }
+        a {
+            display: inline;
+            text-decoration: double;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 20px;
+            border-right: 1px solid #000000;
+            padding-right: 5px;
+        }
+        #spanId {
+            position: absolute;
+            bottom: 0;
+            padding-right: 50px;
+            text-align: left;
+            color: white;
+            font-size: 18px;
+            font-family: "Times New Roman",Georgia;
+            text-decoration: double;
+        }
+        .a1 {
+            border-left: 1px solid #000000;
+            padding-left: 5px;
+        }
+        a:hover {
+            color: #93acb1;
+        }
+        i{
+            margin-right:5px;
+        }
+        #CategoryId {
+            color: #ff0000;
+        }
+
+        #NameId {
+            color: #ff0000;
+        }
+
+        input, select {
+            width: 40%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #cbd4db;
+            border-radius: 5px;
+        }
+
+        #formId {
+            position: relative;
+            left: 50%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: lightblue;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            background-color: #286090;
+            color: white;
+            font-size: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #286090;
+            color: white;
+            font-size: 20px;
+        }
+
+        label {
+            font-size: 20px;
+            color: white;
+        }
+
+        h1 {
+            padding-bottom: 10px;
+            color: white;
+            position: relative;
+            left: 60%;
+            font-family: "Times New Roman",Georgia;
+        }
+
+        h2 {
+            font-size: 35px;
+            color: white;
+            padding-bottom: 10px;
+        }
+
+        table {
+            border: 3px solid grey;
+            width: 30%;
+            border-collapse: collapse;
+            position: relative;
+            left: 60%;
+            overflow-y: auto;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 3px solid grey;
+            color: white;
+        }
+
+        th {
+            font-size: 23px;
+        }
+    </style>
+</head>
+<body>
+   <div id="linkId">
+        <a class="a1" href="/Home/HomeIndex"><i class="fa fa-home" style="font-size:24px"></i> Home</a>
+        <a href="/Movies/MoviesIndex"><i class="fa fa-video-camera" style="font-size:24px"></i> Movies</a>
+        <a href="/Customers/CustomersIndex"><i class="fa fa-users" style="font-size:24px"></i>Customer</a>
+        <a href="/Rentals/RentalsNew"><i class="fa fa-credit-card" style="font-size:24px"></i> New Rental</a>
+    </div>
+
+    @RenderBody()
+
+    <footer>
+        <span id="spanId" class="footer">&#64; 2017 Tec-Career Movis Rental</span>
+    </footer>
+</body>
+</html>
+

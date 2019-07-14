@@ -1,0 +1,44 @@
+﻿@using WebApplication1.Models
+
+@model List<Customer>
+@{
+    Layout = "/Layout/Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CustomersIndex</title>
+    <style>
+        .linkId {
+            position: relative;
+            left: 60%;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="h2">All Customers</h1>
+    <br />
+    <div class="linkId">@Html.ActionLink("Click to go to the Create Customer form", "CustomersNew")</div>
+    <br />
+    <br />
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Subscription</th>
+            <th>Age</th>
+        </tr>
+        @foreach (var line in Model)
+        {
+            <tr>
+                <td>@line.CustomersName</td>
+                <td>@line.CustomersSubscription</td>
+                <td>@line.CustomersAge</td>
+            </tr>
+        }
+    </table>
+
+</body>
+</html>
